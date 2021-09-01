@@ -8,28 +8,25 @@ function delay(data,ms) {
 delay({name: "user"}, 1000).then((data) => console.log("Hello!", data))
 
 async function getResult(){
+    let userInfo = getUserInfo();
     let result1 = await getUserInfo();
     let result2 = await getUserAvatar(result1);
     let result3 = await getUserAdditionalInfo(result2);
-    console.log(result1, result2, result3)
-
+    console.log(result1, result2, result3, userInfo)
 }
 async function getUserInfo() {
     return await delay({name:'Vic', age:21, id:1},1000)
     
 }
-
 console.log (getUserInfo())
 
-async function getUserAvatar(result1) {
+async function getUserAvatar(userInfo) {
     userInfo.avatar = 'https://previews.123rf.com/images/stockgiu/stockgiu1708/stockgiu170802061/83728179-avatar-sketch-of-a-funny-man-s-haed-with-sunglasses-and-hairstyle-design.jpg'
-    return await delay(result1,1000)
+    return await delay(userInfo,1000)
 }
-console.log (getUserAvatar())
-
-async function getUserAdditionalInfo(result2) {
+async function getUserAdditionalInfo(userInfo) {
     userInfo.interests = ['sport', 'books'];
-    return await delay(result2,1000)
+    return await delay(userInfo,1000)
 }
 
 getResult();
@@ -38,8 +35,15 @@ async function getUser() {
     return { name: 'Vic', age: 21, id: 1 };
 }
 async function getInfo() {
+    try {
     let user = await getUser();
-    throw new Error('error');
+    console.log(user)
+    throw new Error('error')
+    }
+    catch{
+        console.log('error')
+    }
+    // throw new Error('error');
 }
  
 getInfo();
